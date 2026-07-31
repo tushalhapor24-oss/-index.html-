@@ -1,0 +1,1115 @@
+<!doctype html>
+<html lang="gu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GN Prop Finder">
+<meta name="theme-color" content="#0c5cab">
+<title>Gandhinagar Property Finder — Owner Direct</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🏠</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230c5cab'/><text x='50' y='72' font-size='60' text-anchor='middle'>🏠</text></svg>">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans Gujarati",sans-serif;background:#eef3fb;color:#0b1f3a}
+header{background:linear-gradient(135deg,#0c5cab,#0a3d62);color:#fff;padding:14px 14px calc(env(safe-area-inset-bottom)+12px);position:sticky;top:0;z-index:50;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+header h1{margin:0;font-size:17px;display:flex;align-items:center;gap:8px}
+header p{margin:3px 0 0;font-size:12px;opacity:.9}
+.tabs{display:flex;gap:6px;margin-top:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+.tabs button{flex:0 0 auto;background:rgba(255,255,255,.18);color:#fff;border:0;padding:8px 12px;border-radius:20px;font-size:13px;font-weight:600;white-space:nowrap}
+.tabs button.active{background:#fff;color:#0c5cab}
+.wrap{padding:12px;padding-bottom:calc(env(safe-area-inset-bottom)+90px)}.card{background:#fff;border-radius:14px;padding:13px;margin-bottom:12px;box-shadow:0 2px 8px rgba(12,92,171,.07)}
+label{font-size:13px;font-weight:600;color:#0a3d62;display:block;margin:10px 0 6px}
+.row{display:flex;gap:8px;align-items:center}
+.row>*{flex:1}
+input[type=text],input[type=number]{width:100%;padding:11px 12px;border:1.5px solid #d4deec;border-radius:10px;font-size:15px;outline:none;background:#f7faff;-webkit-appearance:none}
+input:focus{border-color:#0c5cab;background:#fff}
+
+/* Property type segmented */
+.seg{display:flex;background:#eef3fb;border-radius:12px;padding:4px;gap:4px;margin-bottom:6px}
+.seg button{flex:1;background:transparent;border:0;padding:10px 4px;border-radius:10px;font-size:13px;font-weight:700;color:#0c5cab}
+.seg button.active{background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.08);color:#0c5cab}
+.seg button .ic{display:block;font-size:18px;margin-bottom:2px}
+
+.bhks{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.bhks label{margin:0;background:#f0f5fd;padding:9px 12px;border-radius:20px;font-weight:600;color:#0c5cab;font-size:13px;display:inline-flex;align-items:center;gap:6px}
+.bhks input{display:none}
+.bhks label.on{background:#0c5cab;color:#fff}
+
+.btn{width:100%;background:#0c5cab;color:#fff;border:0;border-radius:12px;padding:14px;font-size:16px;font-weight:700;margin-top:8px;box-shadow:0 4px 14px rgba(12,92,171,.3);cursor:pointer}
+.btn.alt{background:#fff;color:#0c5cab;border:1.5px solid #0c5cab;box-shadow:none}
+.btn.green{background:#16a085;box-shadow:0 4px 14px rgba(22,160,133,.3)}
+.btn.red{background:#e74c3c;box-shadow:0 4px 14px rgba(231,76,60,.3)}
+.btn.gray{background:#f0f3f8;color:#34495e;box-shadow:none}
+.btn.orange{background:#e67e22;box-shadow:0 4px 14px rgba(230,126,34,.3)}
+
+.source{display:flex;gap:10px;align-items:center;padding:12px;border-radius:10px;margin-bottom:8px;background:#f7faff;border:1px solid #e4ecf7}
+.source .logo{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;flex:0 0 auto;color:#fff;font-weight:700;text-align:center;line-height:1}
+.source .info{flex:1;min-width:0}
+.source .info b{display:block;font-size:14px;color:#0a3d62;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.source .info small{color:#6b7a90;font-size:12px;display:block}
+.source a{background:#0c5cab;color:#fff;padding:9px 12px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap}
+
+.cat-pill{display:inline-block;padding:3px 9px;border-radius:12px;font-size:11px;font-weight:700;margin-right:6px;color:#fff}
+.cat-sale{background:#e74c3c}.cat-rent{background:#27ae60}.cat-plot{background:#8e44ad}.cat-shop{background:#e67e22}.cat-new{background:#16a3b7}
+
+.note{background:#fff8e1;border-left:4px solid #ffb300;padding:10px 12px;border-radius:8px;font-size:13px;color:#7a5600;margin-bottom:12px}
+.oknote{background:#e6f9f0;border-left:4px solid #16a085;color:#0c5c3b}
+.infonote{background:#eaf4ff;border-left:4px solid #0c5cab;color:#0a3d62}
+
+.fav-item{padding:11px;border-bottom:1px solid #eef2f8}
+.fav-item:last-child{border-bottom:0}
+.fav-item b{display:block;font-size:14px}
+.fav-item small{color:#6b7a90;font-size:12px;display:block;margin-top:2px}
+.fav-item .fr{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+.fav-item .fr a,.fav-item .fr button{padding:7px 10px;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;border:0}
+.fav-item .fr a{background:#0c5cab;color:#fff}
+.fav-item .fr button.wa{background:#25d366;color:#fff}
+.fav-item .fr button.dl{background:#eee;color:#c0392b}
+.fav-item .fr button.tg{background:#0088cc;color:#fff}
+
+.footer-install{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #dde5f0;padding:10px 14px calc(env(safe-area-inset-bottom)+10px);font-size:13px;color:#444;text-align:center;z-index:60;display:none}
+.footer-install button{background:#0c5cab;color:#fff;border:0;padding:8px 14px;border-radius:20px;font-weight:700;margin-left:8px}
+.section{display:none}
+.section.active{display:block}
+h2{margin:6px 0 10px;font-size:16px;color:#0a3d62}
+.badge{display:inline-block;background:#16a085;color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px}
+.step{display:flex;gap:10px;margin-bottom:10px}
+.step .n{width:28px;height:28px;border-radius:50%;background:#0c5cab;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex:0 0 auto;font-size:13px}
+.step p{margin:0;font-size:14px;line-height:1.4}
+.tip{background:#fff;border-radius:12px;padding:12px;margin-bottom:10px;font-size:14px;line-height:1.5;border-left:4px solid #0c5cab}
+.share{background:#eef3fb;padding:12px;border-radius:10px;margin-top:8px;font-size:13px}
+
+/* Category tabs inside saved */
+.subtabs{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.subtabs button{background:#f0f5fd;color:#0c5cab;border:0;padding:7px 14px;border-radius:18px;font-size:12px;font-weight:700}
+.subtabs button.active{background:#0c5cab;color:#fff}
+
+/* Quick access on home */
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.quick button{background:#fff;border:1px solid #e4ecf7;border-radius:12px;padding:10px 4px;font-size:11px;font-weight:700;color:#0a3d62;display:flex;flex-direction:column;align-items:center;gap:4px}
+.quick button .qic{font-size:22px}
+
+.results-head{display:flex;justify-content:space-between;align-items:center;margin:10px 0 6px}
+.results-head b{font-size:14px;color:#0a3d62}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🏠 Gandhinagar Property Finder <span style="font-weight:400;font-size:12px;opacity:.8">— Owner Direct</span></h1>
+  <p>Sale • Rent • Plot • Shop — Broker vagar direct owner</p>
+  <div class="tabs">
+    <button class="active" data-tab="home">🔎 Search</button>
+    <button data-tab="sites">🏘 Quick Links</button>
+    <button data-tab="alerts">🔔 Alerts</button>
+    <button data-tab="favs">⭐ Saved</button>
+    <button data-tab="help">📲 Install</button>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ============ HOME ============ -->
+<div class="section active" id="home">
+  <div class="note oknote">✅ PC/EXE ni jarur nathi — Safari ma j chhale chhe. Category pasand kari ne filters set karo, pachi "Search Now" dabavo — badhi sites na direct owner links bani jase.</div>
+
+  <div class="card">
+    <h2 style="margin-top:0">📌 Category pasand karo</h2>
+    <div class="seg" id="catSeg" style="flex-wrap:wrap">
+      <button class="active" data-cat="sale"><span class="ic">🏙</span>Sale (Flat/Bung)</button>
+      <button data-cat="rent"><span class="ic">🔑</span>Rent</button>
+      <button data-cat="new"><span class="ic">🆕</span>New Launch</button>
+      <button data-cat="plot"><span class="ic">🌳</span>Plot / Land</button>
+      <button data-cat="shop"><span class="ic">🏪</span>Shop / Office</button>
+    </div>
+
+    <!-- Quick start -->
+    <div class="quick" style="grid-template-columns:repeat(3,1fr)">
+      <button onclick="quickSearch('sale','2','30','80','sargasan,kudasan')"><span class="qic">🏢</span>2BHK Sale 30-80L</button>
+      <button onclick="quickSearch('new','','30','150','gift city,sargasan,kudasan,raysan')"><span class="qic">🆕</span>New Launch</button>
+      <button onclick="quickSearch('rent','2','15','30','')"><span class="qic">🔑</span>2BHK Rent 15-30k</button>
+      <button onclick="quickFamily()"><span class="qic">👨‍👩‍👧</span>Rent Family</button>
+      <button onclick="quickBach()"><span class="qic">👨‍💼</span>Rent Bachelors</button>
+      <button onclick="quickSearch('plot','','0','500','')"><span class="qic">🌳</span>All Plots</button>
+    </div>
+
+    <h2>🛏 Property Type / BHK <small style="color:#888;font-weight:400">(Plot/Shop ma BHK lagoo nathi)</small></h2>
+    <div class="bhks" id="bhkBox">
+      <label class="on"><input type="checkbox" value="1" checked>1 BHK</label>
+      <label class="on"><input type="checkbox" value="2" checked>2 BHK</label>
+      <label class="on"><input type="checkbox" value="3" checked>3 BHK</label>
+      <label class="on"><input type="checkbox" value="4" checked>4 BHK</label>
+      <label><input type="checkbox" value="5">5+ BHK</label>
+      <label><input type="checkbox" value="bungalow">Bungalow/Villa</label>
+    </div>
+
+    <label id="priceLabel">💰 Price range (Lakhs ma — sale/plot mate)</label>
+    <div class="row">
+      <input type="number" id="minp" placeholder="Min" inputmode="numeric" value="0">
+      <input type="number" id="maxp" placeholder="Max" inputmode="numeric" value="500">
+    </div>
+
+    <label id="rentLabel" style="display:none">💸 Rent range (Monthly ₹ ma — rent/shop mate)</label>
+    <div class="row" id="rentRow" style="display:none">
+      <input type="number" id="minr" placeholder="Min rent ₹" inputmode="numeric" value="5000">
+      <input type="number" id="maxr" placeholder="Max rent ₹" inputmode="numeric" value="100000">
+    </div>
+
+    <label>📍 Area / Society / Sector keywords (comma thi separate)</label>
+    <input type="text" id="kw" placeholder="Example: sargasan, kudasan, gift city, sector 21, adalaj, vavol, raysan">
+
+    <!-- Property Status (sale/new/shop) -->
+    <div id="underConRow" style="display:block">
+      <label id="statusLabel">🏗 Property Status</label>
+      <div class="bhks">
+        <label class="on"><input type="checkbox" id="readyMove" checked>Ready to Move</label>
+        <label class="on"><input type="checkbox" id="underConst" checked>Under Construction</label>
+      </div>
+    </div>
+
+    <!-- Furnishing (rent/new/sale) -->
+    <div id="furnishRow" style="display:block">
+      <label id="furnishLabel">🛋 Furnishing (Rent / Sale / New Launch)</label>
+      <div class="bhks">
+        <label class="on"><input type="radio" name="furn" value="any" checked>Any</label>
+        <label><input type="radio" name="furn" value="furnished">Furnished</label>
+        <label><input type="radio" name="furn" value="semifurnished">Semi-Furnished</label>
+        <label><input type="radio" name="furn" value="unfurnished">Unfurnished</label>
+      </div>
+    </div>
+
+    <!-- Tenant preference (rent only) -->
+    <div id="tenantRow" style="display:none">
+      <label>👨‍👩‍👧 Tenant Preference (Rent mate)</label>
+      <div class="bhks">
+        <label class="on"><input type="radio" name="tenant" value="any" checked>Any (Badha)</label>
+        <label><input type="radio" name="tenant" value="family">Family only</label>
+        <label><input type="radio" name="tenant" value="bachelor">Bachelors allowed</label>
+      </div>
+    </div>
+
+    <label>👤 Listing type</label>
+    <div class="bhks">
+      <label class="on"><input type="checkbox" id="ownerOnly" checked>Owner j (no broker)</label>
+      <label class="on"><input type="checkbox" id="verified" checked>Verified</label>
+    </div>
+
+    <button class="btn" onclick="buildLinks()">🔍 Search Now — Results Dhundo</button>
+    <button class="btn gray" onclick="resetFilters()">🔄 Reset Filters</button>
+  </div>
+
+  <div id="results"></div>
+</div>
+
+<!-- ============ SITES / QUICK LINKS ============ -->
+<div class="section" id="sites">
+  <h2>🏘 1-click Quick Links — Direct owner pages</h2>
+  <div class="note">Niche category choose karo, pachi badhi sites na pre-filtered direct links open thashe.</div>
+
+  <div class="card">
+    <div class="seg" id="catSeg2" style="flex-wrap:wrap">
+      <button class="active" data-cat="sale"><span class="ic">🏙</span>Sale</button>
+      <button data-cat="rent"><span class="ic">🔑</span>Rent</button>
+      <button data-cat="new"><span class="ic">🆕</span>New Launch</button>
+      <button data-cat="plot"><span class="ic">🌳</span>Plot</button>
+      <button data-cat="shop"><span class="ic">🏪</span>Shop</button>
+    </div>
+  </div>
+  <div id="sitelist"></div>
+</div>
+
+<!-- ============ ALERTS ============ -->
+<div class="section" id="alerts">
+  <h2>🔔 Auto Alerts (FREE)</h2>
+  <div class="note">iPhone ma automatic background alert mate Google Sheets + Apps Express shreshth chhe. Ek vaar setup kari lo, pachi navi listing aave ke message malshe.</div>
+
+  <div class="card">
+    <h2>Step 1 — Category choose kari ne search save karo</h2>
+    <p style="font-size:14px">Search tab ma tamari pasand na filters set kari ne "Search Now" dabavo, pachi niche "Save this search to Google Sheet" button par tap karo — direct Google Sheets navi sheet banaava mate open thashe.</p>
+    <button class="btn green" onclick="openNewSheet()">📑 Navi Google Sheet banavo (template import)</button>
+  </div>
+
+  <div class="card">
+    <h2>Step 2 — Apps Script copy-paste</h2>
+    <p style="font-size:14px;line-height:1.5">Sheet banaya pachi <b>Extensions → Apps Script</b> kholo. Niche apelo script copy kari ne tya paste karo. <b>CAT</b> variable ma tamari category (sale/rent/plot/shop) set karo ane filters set kari lo. Pachi <b>Triggers</b> ma dar 30 minute ya 1 kalak no time trigger set kari lo.</p>
+  </div>
+
+  <div class="card">
+    <h2>📜 Ready Apps Script (copy karo)</h2>
+    <div class="subtabs" id="scriptTabs">
+      <button class="active" data-s="sale">Sale</button>
+      <button data-s="rent">Rent</button>
+      <button data-s="new">New Launch</button>
+      <button data-s="plot">Plot</button>
+      <button data-s="shop">Shop</button>
+    </div>
+    <textarea id="scriptText" style="width:100%;height:280px;font-family:Menlo,monospace;font-size:11px;padding:8px;border-radius:8px;border:1px solid #ccd6e6" readonly></textarea>
+    <button class="btn" onclick="copyScript()">📋 Script Copy kari lo</button>
+    <div class="share" id="copyMsg" style="display:none;background:#e6f9f0;color:#0c5c3b">✅ Script copy thai gayu! Have Apps Script ma paste karo.</div>
+  </div>
+
+  <div class="card">
+    <h2>💡 Extra alert options</h2>
+    <div class="tip"><b>NoBroker / 99acres / Housing apps:</b> App store parthi download kari ne "Saved Search" banavo — push notification free malshe.</div>
+    <div class="tip"><b>Facebook Marketplace:</b> Search kari ne "Save Search" karo — FB app notification malshe.</div>
+    <div class="tip"><b>OLX:</b> Search mate "Alert me" chhe — free SMS/email notification.</div>
+  </div>
+</div>
+
+<!-- ============ FAVS ============ -->
+<div class="section" id="favs">
+  <h2>⭐ Saved Listings <span id="favCount" class="badge">0</span></h2>
+  <div class="card" style="padding:10px">
+    <div class="subtabs" id="favTabs">
+      <button class="active" data-f="all">Badhi</button>
+      <button data-f="sale">🏙 Sale</button>
+      <button data-f="rent">🔑 Rent</button>
+      <button data-f="new">🆕 New Launch</button>
+      <button data-f="plot">🌳 Plot</button>
+      <button data-f="shop">🏪 Shop</button>
+    </div>
+  </div>
+  <div class="note infonote">📊 Niche "Export CSV" button chhe — tamari saved listings ne Excel/Google Sheets ma kholva mate CSV file download kari shako chho (category select kari ne export karo).</div>
+  <div class="row" style="margin-bottom:10px">
+    <button class="btn alt" style="margin:0" onclick="exportCsv('all')">📥 Export ALL (CSV)</button>
+    <button class="btn green" style="margin:0" onclick="exportCsv(FAV_FILT)">📥 Export this category (CSV)</button>
+  </div>
+  <div class="note" id="favEmpty">Atayre sudhi koi listing save nathi. Search tab ma jav ane game te listing par "⭐ Save" tap karo.</div>
+  <div class="card" id="favList" style="padding:0"></div>
+  <button class="btn red" onclick="clearFavs()">🗑 Badhi saved listings clear karo</button>
+</div>
+
+<!-- ============ HELP ============ -->
+<div class="section" id="help">
+  <h2>📲 Home Screen par Install karo</h2>
+  <div class="card">
+    <div class="tip"><b>Step 1:</b> Aa page Safari ma j kholo (Chrome ma Add to Home Screen sari rite nathi thatu).</div>
+    <div class="tip"><b>Step 2:</b> Screen na niche/upar <b>Share icon 🔲⬆</b> tap karo.</div>
+    <div class="tip"><b>Step 3:</b> Niche scroll kari ne <b>"Add to Home Screen"</b> option tap karo.</div>
+    <div class="tip"><b>Step 4:</b> Naam raakhvu hoy to raakho ne <b>"Add"</b> tap karo. Bas! Home screen par icon bani jase.</div>
+  </div>
+
+  <h2>🧭 Samajhni — Category vise</h2>
+  <div class="card">
+    <div class="tip"><span class="cat-pill cat-sale">Sale</span><b>Flat / Bungalow / Apartment kharidva mate</b> — resale 1/2/3/4/5 BHK + villas/bungalows owner listed malshe. Ready to Move / Under Construction banne option chhe. Furnished status (Furnished/Semi/Unfurnished) pan filter kari shakay.</div>
+    <div class="tip"><span class="cat-pill cat-rent">Rent</span><b>Bhade / Rent par levani jagya</b> — 1/2/3/4 BHK flats, bungalows, villas, PG options. <b>👨‍👩‍👧 Tenant Preference</b> (Family only / Bachelors allowed) + <b>🛋 Furnishing</b> (Furnished/Semi/Unfurnished) filter lagadi shako chho.</div>
+    <div class="tip"><span class="cat-pill cat-new">New Launch</span><b>🆕 Navu launch thatu / Under Construction projects</b> — builder/developer na new towers, new schemes, pre-launch, RERA approved upcoming projects. Magicbricks New Projects, 99acres New Projects, Housing Projects, Proptiger, SquareYards badha ek jagya. Direct builder booking, owner resale new bookings pan aave chhe.</div>
+    <div class="tip"><span class="cat-pill cat-plot">Plot</span><b>Plot / Jamin / Land kharidva mate</b> — residential NA/NOC plots, commercial land Gandhinagar/Ahmedabad border ma.</div>
+    <div class="tip"><span class="cat-pill cat-shop">Shop</span><b>Dukaan / Office / Showroom</b> — rent ya sale mate commercial property (under constr. commercial projects pan aave chhe).</div>
+  </div>
+
+  <h2>💡 Tips</h2>
+  <div class="card" style="line-height:1.55;font-size:14px">
+    <ul style="padding-left:20px;margin:0">
+      <li><b>Owner no number</b> Magicbricks/99acres par public page par nathi dekhatu. Site par login kari ne <b>"Contact Owner" / "View Number"</b> click karo.</li>
+      <li><b>NoBroker</b> ane <b>OLX</b> par mobile OTP login pachhi number direct dekhay chhe.</li>
+      <li><b>Facebook Marketplace</b> par direct chat thai shake chhe, WhatsApp link pan male chhe.</li>
+      <li>Keywords ma <b>sector number</b> nakho (ex: sector 6, sector 21) to e area ni j listings malshe.</li>
+      <li>New listing maleto ⭐ Save kari lo — app yaad rakhshe ane WhatsApp/Telegram thi potane mokli shaksho.</li>
+    </ul>
+  </div>
+</div>
+
+</div>
+
+<div class="footer-install" id="installBar">
+  📲 Home Screen par app add karo — Share 🔲⬆ tap → "Add to Home Screen"
+  <button onclick="document.getElementById('installBar').style.display='none'">OK</button>
+</div>
+
+<script>
+const CURRENT_CAT = { cat: "sale" };
+
+// ===== Source URL builders (per category) =====
+// Each source has per-category url(p) function. p = {bhks,min,max,minr,maxr,kw,ownerOnly,readyMove,underConst,tenant}
+function _statusParamMB(ready, uc){
+  let s=[];
+  if(ready && !uc) s.push("Ready to Move");
+  if(uc && !ready) s.push("Under Construction");
+  return s.length? "&projectStatus_"+s.map(encodeURIComponent).join(",") : "";
+}
+function _furnParamMB(furn){
+  // Magicbricks furnishing parameter
+  if(furn==="furnished") return "&furnishing=Furnished";
+  if(furn==="semifurnished") return "&furnishing=Semi-Furnished";
+  if(furn==="unfurnished") return "&furnishing=Unfurnished";
+  return "";
+}
+function _furnParam99(furn){
+  if(furn==="furnished") return "&furnishing=F";
+  if(furn==="semifurnished") return "&furnishing=S";
+  if(furn==="unfurnished") return "&furnishing=U";
+  return "";
+}
+function _furnParamHousing(furn){
+  if(furn==="furnished") return "&furnishing=1";
+  if(furn==="semifurnished") return "&furnishing=2";
+  if(furn==="unfurnished") return "&furnishing=0";
+  return "";
+}
+function _furnParamNB(furn){
+  if(furn==="furnished") return "&furnishing=FULLY_FURNISHED";
+  if(furn==="semifurnished") return "&furnishing=SEMI_FURNISHED";
+  if(furn==="unfurnished") return "&furnishing=NONE";
+  return "";
+}
+function _furnKw(furn){
+  if(furn==="furnished") return " furnished";
+  if(furn==="semifurnished") return " semi furnished semifurnished";
+  if(furn==="unfurnished") return " unfurnished";
+  return "";
+}
+function _tenantQ(tenant){
+  if(tenant==="family") return " family only";
+  if(tenant==="bachelor") return " bachelor allowed bachelors";
+  return "";
+}
+function _statusKw(ready,uc){
+  if(ready && !uc) return " ready to move";
+  if(uc && !ready) return " under construction new booking";
+  return "";
+}
+const SOURCES = {
+  sale: [
+    {name:"Magicbricks — Owner Sale (Flats/Bung)",   logo:"MB", color:"e74c3c",
+     u:p=>{
+       let u=`https://www.magicbricks.com/owner-property-for-sale-in-gandhinagar-pppfs?budgetMin=${p.min}L&budgetMax=${p.max}L${p.bhks.length?"&"+p.bhks.filter(b=>b!=="bungalow").map(b=>"bedroom_num="+b.replace(/\D/g,"")).join("&"):""}${_furnParamMB(p.furn)}&q=${encodeURIComponent((p.kw||"")+_statusKw(p.readyMove,p.underConst)+_furnKw(p.furn))}`;
+       if(!p.underConst) u+="&const_status=Ready to move";
+       else if(!p.readyMove) u+="&const_status=Under Construction";
+       return u;
+     }},
+    {name:"Magicbricks — Under Construction / New Booking (Owner)", logo:"🏗", color:"d35400",
+     u:p=>p.underConst?`https://www.magicbricks.com/property-for-sale-new-projects-in-gandhinagar?posted_by=Owner&budgetMin=${p.min}L&budgetMax=${p.max}L${_furnParamMB(p.furn)}`:"javascript:void(0)", hide:(p)=>!p.underConst},
+    {name:"Magicbricks — Resale by Owner",          logo:"MB", color:"c0392b",
+     u:p=>p.readyMove?`https://www.magicbricks.com/Resale-Flats-Apartments-For-Sale-By-Owner-in-Gandhinagar?budgetMin=${p.min}L&budgetMax=${p.max}L${_furnParamMB(p.furn)}`:"javascript:void(0)", hide:(p)=>!p.readyMove},
+    {name:"99acres — Owner Flats Sale",             logo:"99", color:"16a085",
+     u:p=>{
+       let u=`https://www.99acres.com/owner-flats-in-gandhinagar-ffid${p.bhks.length?"?"+p.bhks.filter(b=>b!=="bungalow").map(b=>"bhk="+b.replace(/\D/g,"")).join("&"):""}`;
+       if(p.readyMove && !p.underConst) u+=(u.includes("?")?"&":"?")+"posting=R";
+       if(p.underConst && !p.readyMove) u+=(u.includes("?")?"&":"?")+"posting=N";
+       u+=_furnParam99(p.furn);
+       if(p.kw) u+="&q="+encodeURIComponent(p.kw+_furnKw(p.furn));
+       return u;
+     }},
+    {name:"99acres — New Projects (Under Constr.)", logo:"🏗", color:"0e6655",
+     u:p=>p.underConst?`https://www.99acres.com/new-projects-in-gandhinagar-ffid`:"javascript:void(0)", hide:(p)=>!p.underConst},
+    {name:"99acres — Bungalows/Villa Owner Sale",   logo:"🏡", color:"117864",
+     u:p=>`https://www.99acres.com/owner-villas-in-gandhinagar-ffid`},
+    {name:"Housing.com — Owner Flats",              logo:"H",  color:"e67e22",
+     u:p=>{
+       let u=`https://housing.com/in/buy/flats_by_owner/gandhinagar?price_min=${p.min}00000&price_max=${p.max}00000${_furnParamHousing(p.furn)}`;
+       if(p.readyMove && !p.underConst) u+="&status=0";
+       if(p.underConst && !p.readyMove) u+="&status=1";
+       return u;
+     }},
+    {name:"Housing.com — New Projects",             logo:"🏗", color:"ca6f1e",
+     u:p=>p.underConst?`https://housing.com/in/buy/projects/gandhinagar`:"javascript:void(0)", hide:(p)=>!p.underConst},
+    {name:"NoBroker — Zero Brokerage Sale",         logo:"0%", color:"27ae60",
+     u:p=>`https://www.nobroker.in/property/sale/gandhinagar/Gandhinagar?owner=1&bhk=${p.bhks.filter(b=>b!=="bungalow").join(",")}${_furnParamNB(p.furn)}`},
+    {name:"OLX Homes — Owner Direct",               logo:"OLX",color:"3498db",
+     u:p=>`https://www.olx.in/ahmedabad_g4059191/houses-apartments-for-sale_c1234?filter=utp_name%3AOwner&query=${encodeURIComponent("gandhinagar flat owner "+(p.kw||"")+_statusKw(p.readyMove,p.underConst)+_furnKw(p.furn))}`},
+    {name:"FB Marketplace — Owner sale posts",      logo:"f", color:"2980b9",
+     u:p=>`https://www.facebook.com/marketplace/ahmedabad/propertyforsale/?query=${encodeURIComponent("gandhinagar flat bungalow owner sale "+(p.kw||"")+_statusKw(p.readyMove,p.underConst)+_furnKw(p.furn))}`},
+    {name:"IndiaProperty — Owner Sale",             logo:"IP", color:"8e44ad",
+     u:p=>`https://www.indiaproperty.com/property-for-sale/gandhinagar?posted_by=Owner`},
+    {name:"CommonFloor — Owner Sale",               logo:"CF", color:"d35400",
+     u:p=>`https://www.commonfloor.com/listing-search?city=gandhinagar&posted_by=owner`},
+  ],
+  rent: [
+    {name:"Magicbricks — Owner Flat for Rent", logo:"MB", color:"e74c3c",
+     u:p=>{
+       let u=`https://www.magicbricks.com/flats-on-rent-without-brokerage-in-gandhinagar-pppfr?rentalMin=${p.minr}&rentalMax=${p.maxr}${p.bhks.length?"&"+p.bhks.filter(b=>b!=="bungalow").map(b=>"bedroom_num="+b.replace(/\D/g,"")).join("&"):""}${_furnParamMB(p.furn)}`;
+       if(p.tenant==="family") u+="&tenants=Family";
+       if(p.tenant==="bachelor") u+="&tenants=Bachelors";
+       return u+`&q=${encodeURIComponent((p.kw||"")+_tenantQ(p.tenant)+_furnKw(p.furn))}`;
+     }},
+    {name:"Magicbricks — Bungalow/Villa Rent (Owner)", logo:"🏡", color:"c0392b",
+     u:p=>`https://www.magicbricks.com/bungalow-villa-on-rent-by-owner-in-gandhinagar-pppfr?rentalMin=${p.minr}&rentalMax=${p.maxr}${_furnParamMB(p.furn)}`},
+    {name:"99acres — Owner Flats for Rent", logo:"99", color:"16a085",
+     u:p=>{
+       let u=`https://www.99acres.com/rent-flats-in-gandhinagar-ffid?f=ads%2Fposted_by%3DOwner`;
+       if(p.tenant==="family") u+="&tenants_pref=1";
+       if(p.tenant==="bachelor") u+="&tenants_pref=2";
+       u+=_furnParam99(p.furn);
+       return u;
+     }},
+    {name:"99acres — Bungalow/Villa Rent (Owner)",  logo:"🏡", color:"117864",
+     u:p=>`https://www.99acres.com/rent-villas-in-gandhinagar-ffid?f=ads%2Fposted_by%3DOwner`},
+    {name:"Housing.com — Owner Flats Rent",         logo:"H",  color:"e67e22",
+     u:p=>{
+       let u=`https://housing.com/in/rent/flats_by_owner/gandhinagar?price_min=${p.minr}&price_max=${p.maxr}${_furnParamHousing(p.furn)}`;
+       if(p.tenant==="family") u+="&tenant=family";
+       if(p.tenant==="bachelor") u+="&tenant=bachelors";
+       return u;
+     }},
+    {name:"NoBroker — Zero Brokerage Rent",         logo:"0%", color:"27ae60",
+     u:p=>{
+       let u=`https://www.nobroker.in/property/rent/gandhinagar/Gandhinagar?owner=1&bhk=${p.bhks.filter(b=>b!=="bungalow").join(",")}${_furnParamNB(p.furn)}`;
+       if(p.tenant==="family") u+="&tenant=Family";
+       if(p.tenant==="bachelor") u+="&tenant=Bachelors";
+       return u;
+     }},
+    {name:"NoBroker — Bachelors/Boys/Girls/PG",     logo:"🛏", color:"16a085",
+     u:p=>(p.tenant==="any"||p.tenant==="bachelor")?`https://www.nobroker.in/paying-guest/gandhinagar`:"javascript:void(0)",
+     hide:(p)=>p.tenant==="family"},
+    {name:"OLX — Rent Houses/Flats (Owner)",        logo:"OLX",color:"3498db",
+     u:p=>`https://www.olx.in/ahmedabad_g4059191/houses-apartments-for-rent_c1235?filter=utp_name%3AOwner&query=${encodeURIComponent("gandhinagar flat rent owner "+(p.kw||"")+_tenantQ(p.tenant)+_furnKw(p.furn))}`},
+    {name:"FB Marketplace — Rent posts",            logo:"f", color:"2980b9",
+     u:p=>`https://www.facebook.com/marketplace/ahmedabad/rentals/?query=${encodeURIComponent("gandhinagar flat rent owner "+(p.kw||"")+_tenantQ(p.tenant)+_furnKw(p.furn))}`},
+    {name:"Nestaway — Fully furnished rentals",     logo:"🛏", color:"c0392b",
+     u:p=>p.furn==="any"||p.furn==="furnished"?`https://www.nestaway.com/city/gandhinagar/flats-for-rent`:"javascript:void(0)",
+     hide:(p)=>p.furn==="unfurnished"},
+    {name:"IndiaProperty — Owner Rent",             logo:"IP", color:"8e44ad",
+     u:p=>`https://www.indiaproperty.com/property-for-rent/gandhinagar?posted_by=Owner`},
+    {name:"CommonFloor — Owner Rent",               logo:"CF", color:"d35400",
+     u:p=>`https://www.commonfloor.com/listing-search?city=gandhinagar&posted_by=owner&listing_group=rent`},
+    {name:"Flats for Family only",  logo:"👨‍👩‍👧", color:"2980b9",
+     u:p=>p.tenant==="family"?`https://www.google.com/search?q=${encodeURIComponent("Gandhinagar 2 bhk 3 bhk rent family only owner "+_furnKw(p.furn)+" site:magicbricks.com OR site:99acres.com OR site:housing.com OR site:nobroker.in")}`:"javascript:void(0)",
+     hide:(p)=>p.tenant!=="family"},
+    {name:"Flats for Bachelors",    logo:"👨‍💼", color:"c0392b",
+     u:p=>p.tenant==="bachelor"?`https://www.google.com/search?q=${encodeURIComponent("Gandhinagar 2 bhk 3 bhk rent bachelors allowed owner "+_furnKw(p.furn)+" site:magicbricks.com OR site:99acres.com OR site:housing.com OR site:nobroker.in")}`:"javascript:void(0)",
+     hide:(p)=>p.tenant!=="bachelor"},
+    {name:"Fully Furnished Flats Rent", logo:"🛋", color:"16a085",
+     u:p=>p.furn==="furnished"?`https://www.google.com/search?q=${encodeURIComponent("Gandhinagar fully furnished flat rent owner")}`:"javascript:void(0)",
+     hide:(p)=>p.furn!=="furnished"},
+    {name:"Unfurnished Flats Rent", logo:"🪟", color:"7f8c8d",
+     u:p=>p.furn==="unfurnished"?`https://www.google.com/search?q=${encodeURIComponent("Gandhinagar unfurnished flat rent owner")}`:"javascript:void(0)",
+     hide:(p)=>p.furn!=="unfurnished"},
+  ],
+  plot: [
+    {name:"Magicbricks — Owner Plots/Land Sale",    logo:"🌳", color:"8e44ad",
+     u:p=>`https://www.magicbricks.com/owner-plots-land-for-sale-in-gandhinagar-pppfs?budgetMin=${p.min}L&budgetMax=${p.max}L`},
+    {name:"99acres — Owner Plots/Land",             logo:"99", color:"16a085",
+     u:p=>`https://www.99acres.com/owner-plots-in-gandhinagar-ffid`},
+    {name:"Housing.com — Owner Plots",              logo:"H",  color:"e67e22",
+     u:p=>`https://housing.com/in/buy/plots_by_owner/gandhinagar?price_min=${p.min}00000&price_max=${p.max}00000`},
+    {name:"NoBroker — Plots/Land Sale",             logo:"0%", color:"27ae60",
+     u:p=>`https://www.nobroker.in/property/sale/gandhinagar/Gandhinagar?propertyType=apartment%2Cplot&owner=1`},
+    {name:"OLX — Land/Plots (Owner)",               logo:"OLX",color:"3498db",
+     u:p=>`https://www.olx.in/ahmedabad_g4059191/lands-plots-for-sale_c1313?filter=utp_name%3AOwner&query=${encodeURIComponent("gandhinagar plot land owner "+(p.kw||""))}`},
+    {name:"FB Marketplace — Plots/Land",            logo:"f", color:"2980b9",
+     u:p=>`https://www.facebook.com/marketplace/ahmedabad/propertyforsale/?query=${encodeURIComponent("gandhinagar plot land na owner")}`},
+    {name:"IndiaProperty — Owner Plots",            logo:"IP", color:"8e44ad",
+     u:p=>`https://www.indiaproperty.com/land-for-sale/gandhinagar?posted_by=Owner`},
+  ],
+  new: [
+    {name:"Magicbricks — New Projects in Gandhinagar", logo:"🏗", color:"e74c3c",
+     u:p=>{
+       let u=`https://www.magicbricks.com/new-projects-in-gandhinagar?budgetMin=${p.min}L&budgetMax=${p.max}L${_furnParamMB(p.furn)}`;
+       if(p.kw) u+="&q="+encodeURIComponent(p.kw+_furnKw(p.furn));
+       return u;
+     }},
+    {name:"Magicbricks — Under Construction (Owner)", logo:"MB", color:"c0392b",
+     u:p=>`https://www.magicbricks.com/under-construction-flats-in-gandhinagar-pppfs?posted_by=Owner&budgetMin=${p.min}L&budgetMax=${p.max}L${_furnParamMB(p.furn)}`},
+    {name:"99acres — New Projects in Gandhinagar", logo:"🏗", color:"16a085",
+     u:p=>{
+       let u=`https://www.99acres.com/new-projects-in-gandhinagar-ffid${p.bhks.filter(b=>b!=="bungalow").length?"?bhk="+p.bhks.filter(b=>b!=="bungalow").join(","):""}`;
+       u+=_furnParam99(p.furn);
+       return u;
+     }},
+    {name:"99acres — Under Construction Owner", logo:"99", color:"117864",
+     u:p=>`https://www.99acres.com/under-construction-flats-in-gandhinagar-ffid?f=ads%2Fposted_by%3DOwner${_furnParam99(p.furn)}`},
+    {name:"Housing.com — New Projects Gandhinagar", logo:"🏗", color:"e67e22",
+     u:p=>`https://housing.com/in/buy/projects/gandhinagar?price_min=${p.min}00000&price_max=${p.max}00000${_furnParamHousing(p.furn)}`},
+    {name:"Proptiger — New Projects Gandhinagar", logo:"PT", color:"2980b9",
+     u:p=>`https://www.proptiger.com/gandhinagar/residential-projects`},
+    {name:"SquareYards — New Projects Gandhinagar", logo:"SY", color:"8e44ad",
+     u:p=>`https://www.squareyards.com/gandhinagar-new-projects`},
+    {name:"CommonFloor — New Projects", logo:"CF", color:"d35400",
+     u:p=>`https://www.commonfloor.com/new-projects/gandhinagar`},
+    {name:"IndiaProperty — New Projects", logo:"IP", color:"27ae60",
+     u:p=>`https://www.indiaproperty.com/new-projects/gandhinagar`},
+    {name:"RERA Approved Projects (Gujarat RERA)", logo:"🏛", color:"7d3c98",
+     u:p=>`https://gujreratoday.gujarat.gov.in/SearchProject.aspx?city=Gandhinagar`},
+    {name:"FB Marketplace — New Booking/Pre-Launch", logo:"f", color:"2980b9",
+     u:p=>`https://www.facebook.com/marketplace/ahmedabad/propertyforsale/?query=${encodeURIComponent("gandhinagar new launch booking under construction flat "+(p.kw||"")+_furnKw(p.furn))}`},
+    {name:"Google — New Launch Projects", logo:"🔍", color:"34495e",
+     u:p=>`https://www.google.com/search?q=${encodeURIComponent("Gandhinagar new launch residential project 2025 2026 "+p.kw+_furnKw(p.furn))}`},
+  ],
+  shop: [
+    {name:"Magicbricks — Owner Shops/Offices",      logo:"🏪", color:"e67e22",
+     u:p=>`https://www.magicbricks.com/commercial-property-for-sale-in-gandhinagar-pppfs?posted_by=Owner`},
+    {name:"Magicbricks — Shops on Rent (Owner)",    logo:"🏪", color:"d35400",
+     u:p=>`https://www.magicbricks.com/shops-on-rent-without-brokerage-in-gandhinagar-pppfr`},
+    {name:"99acres — Commercial (Owner)",           logo:"99", color:"16a085",
+     u:p=>`https://www.99acres.com/commercial-property-in-gandhinagar-ffid?f=ads%2Fposted_by%3DOwner`},
+    {name:"Housing.com — Commercial Owner",         logo:"H",  color:"e67e22",
+     u:p=>`https://housing.com/in/buy/commercial_by_owner/gandhinagar`},
+    {name:"NoBroker — Shops/Offices Sale",          logo:"0%", color:"27ae60",
+     u:p=>`https://www.nobroker.in/commercial-property/sale/gandhinagar?owner=1`},
+    {name:"NoBroker — Shops/Offices Rent",          logo:"0%", color:"229954",
+     u:p=>`https://www.nobroker.in/commercial-property/rent/gandhinagar?owner=1`},
+    {name:"OLX — Shops/Offices (Owner)",            logo:"OLX",color:"3498db",
+     u:p=>`https://www.olx.in/ahmedabad_g4059191/commercial-shops-offices-for-sale_c1319?filter=utp_name%3AOwner&query=${encodeURIComponent("gandhinagar shop office owner")}`},
+    {name:"FB Marketplace — Shops/Offices",         logo:"f", color:"2980b9",
+     u:p=>`https://www.facebook.com/marketplace/ahmedabad/commercialreality/?query=${encodeURIComponent("gandhinagar shop office rent sale owner")}`},
+  ]
+};
+
+// ===== Tabs =====
+function switchTab(id){
+  document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("active", b.dataset.tab===id));
+  document.querySelectorAll(".section").forEach(s=>s.classList.toggle("active", s.id===id));
+  window.scrollTo({top:0,behavior:"smooth"});
+  if(id==="sites") renderSiteList(CURRENT_CAT.cat);
+}
+document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>switchTab(b.dataset.tab)));
+
+// ===== Category segmented handlers =====
+function setCat(cat, from){
+  CURRENT_CAT.cat = cat;
+  ["#catSeg","#catSeg2"].forEach(sel=>{
+    const box = document.querySelector(sel);
+    if(!box) return;
+    box.querySelectorAll("button").forEach(b=>b.classList.toggle("active", b.dataset.cat===cat));
+  });
+  // Toggle price/rent label + underConst/tenant/furnish rows
+  // rent: rent range + tenant + furnish
+  // sale: price range + status + furnish
+  // new:  price range + furnish, status hidden (always under-construction)
+  // plot: price range only
+  // shop: price range (sale+rent mixed) + status
+  document.getElementById("priceLabel").textContent = "💰 Price range (Lakhs ma)";
+  const isRent = (cat==="rent");
+  document.getElementById("priceLabel").style.display = isRent? "none":"block";
+  document.getElementById("rentLabel").style.display = isRent? "block":"none";
+  document.getElementById("rentRow").style.display = isRent? "flex":"none";
+
+  const ucRow=document.getElementById("underConRow");
+  const statusLabel=document.getElementById("statusLabel");
+  if(ucRow){
+    if(cat==="sale"||cat==="shop"){
+      ucRow.style.display="block";
+      statusLabel.textContent="🏗 Property Status";
+      document.getElementById("readyMove").closest("label").style.display="";
+    }else if(cat==="new"){
+      ucRow.style.display="block";
+      statusLabel.textContent="🆕 New Launch — jovama aavyu chhe";
+      document.getElementById("readyMove").closest("label").style.display="none";
+      document.getElementById("underConst").checked=true;
+      document.getElementById("underConst").closest("label").classList.add("on");
+    }else{
+      ucRow.style.display="none";
+    }
+  }
+
+  const furnRow=document.getElementById("furnishRow");
+  const furnLabel=document.getElementById("furnishLabel");
+  if(furnRow){
+    if(cat==="plot"){
+      furnRow.style.display="none";
+    }else if(cat==="rent"){
+      furnRow.style.display="block";
+      furnLabel.textContent="🛋 Furnishing (Rent mate)";
+    }else{
+      furnRow.style.display="block";
+      furnLabel.textContent="🛋 Furnishing";
+    }
+  }
+
+  const tnRow=document.getElementById("tenantRow");
+  if(tnRow) tnRow.style.display = (cat==="rent")? "block":"none";
+  // BHK box: hide for plot/shop
+  const bhkBox = document.getElementById("bhkBox");
+  if(cat==="plot"||cat==="shop"){
+    bhkBox.style.opacity=".45";bhkBox.style.pointerEvents="none";
+  }else{bhkBox.style.opacity="1";bhkBox.style.pointerEvents="auto";}
+  if(from==="sites") renderSiteList(cat);
+}
+document.querySelectorAll("#catSeg button, #catSeg2 button").forEach(b=>{
+  b.addEventListener("click",()=>setCat(b.dataset.cat, b.closest("#catSeg2")?"sites":"home"));
+});
+
+// BHK toggle
+document.querySelectorAll("#bhkBox label").forEach(l=>{
+  l.addEventListener("click",()=>{
+    const cb=l.querySelector("input");
+    setTimeout(()=>l.classList.toggle("on",cb.checked),10);
+  });
+});
+document.querySelectorAll("#ownerOnly,#verified").forEach(cb=>{
+  cb.addEventListener("change",()=>cb.closest("label").classList.toggle("on",cb.checked));
+});
+
+// ===== Quick search buttons =====
+function quickSearch(cat,bhk,minp,maxp,kw){
+  setCat(cat,"home");
+  switchTab("home");
+  document.querySelectorAll("#bhkBox input[type=checkbox]").forEach(i=>{
+    const on = bhk? i.value===bhk : true;
+    i.checked=on;
+    i.closest("label").classList.toggle("on",on);
+  });
+  if(cat==="rent"||cat==="shop"){
+    document.getElementById("minr").value=minp*1000;document.getElementById("maxr").value=maxp*1000;
+  }else{
+    document.getElementById("minp").value=minp;document.getElementById("maxp").value=maxp;
+  }
+  document.getElementById("kw").value=kw||"";
+  setTimeout(buildLinks,200);
+}
+function quickUC(){
+  setCat("new","home");switchTab("home");
+  document.querySelectorAll("#bhkBox input[type=checkbox]").forEach(i=>{
+    i.checked=["2","3"].includes(i.value);
+    i.closest("label").classList.toggle("on",i.checked);
+  });
+  document.getElementById("minp").value=30;document.getElementById("maxp").value=200;
+  document.getElementById("kw").value="";
+  const furnAny=document.querySelector('input[name="furn"][value="any"]');
+  if(furnAny){furnAny.checked=true;document.querySelectorAll('input[name="furn"]').forEach(r=>r.closest("label").classList.toggle("on",r.value==="any"));}
+  setTimeout(buildLinks,200);
+}
+function quickFamily(){
+  setCat("rent","home");switchTab("home");
+  document.querySelectorAll("#bhkBox input[type=checkbox]").forEach(i=>{
+    i.checked=["2","3"].includes(i.value);
+    i.closest("label").classList.toggle("on",i.checked);
+  });
+  const el=document.querySelector('input[name="tenant"][value="family"]');
+  if(el){el.checked=true;document.querySelectorAll('input[name="tenant"]').forEach(r=>r.closest("label").classList.toggle("on",r.checked));}
+  document.getElementById("minr").value=15000;document.getElementById("maxr").value=40000;
+  document.getElementById("kw").value="";
+  setTimeout(buildLinks,200);
+}
+function quickBach(){
+  setCat("rent","home");switchTab("home");
+  document.querySelectorAll("#bhkBox input[type=checkbox]").forEach(i=>{
+    i.checked=["1","2"].includes(i.value);
+    i.closest("label").classList.toggle("on",i.checked);
+  });
+  const el=document.querySelector('input[name="tenant"][value="bachelor"]');
+  if(el){el.checked=true;document.querySelectorAll('input[name="tenant"]').forEach(r=>r.closest("label").classList.toggle("on",r.checked));}
+  document.getElementById("minr").value=8000;document.getElementById("maxr").value=25000;
+  document.getElementById("kw").value="";
+  setTimeout(buildLinks,200);
+}
+function quickFurnishedRent(){
+  setCat("rent","home");switchTab("home");
+  const f=document.querySelector('input[name="furn"][value="furnished"]');
+  if(f){f.checked=true;document.querySelectorAll('input[name="furn"]').forEach(r=>r.closest("label").classList.toggle("on",r.checked));}
+  document.getElementById("minr").value=15000;document.getElementById("maxr").value=60000;
+  setTimeout(buildLinks,200);
+}
+
+function readFilters(){
+  const bhks=[...document.querySelectorAll("#bhkBox input[type=checkbox]:checked")].map(i=>i.value);
+  const min = parseFloat(document.getElementById("minp").value)||0;
+  const max = parseFloat(document.getElementById("maxp").value)||500;
+  const minr = parseFloat(document.getElementById("minr").value)||5000;
+  const maxr = parseFloat(document.getElementById("maxr").value)||500000;
+  const kw = document.getElementById("kw").value.trim();
+  const ownerOnly = document.getElementById("ownerOnly").checked;
+  const readyMove = document.getElementById("readyMove")?document.getElementById("readyMove").checked:true;
+  const underConst = document.getElementById("underConst")?document.getElementById("underConst").checked:true;
+  let tenant="any";
+  const tEl=document.querySelector('input[name="tenant"]:checked');
+  if(tEl) tenant=tEl.value;
+  let furn="any";
+  const fEl=document.querySelector('input[name="furn"]:checked');
+  if(fEl) furn=fEl.value;
+  return {bhks,min,max,minr,maxr,kw,ownerOnly,readyMove,underConst,tenant,furn};
+}
+function resetFilters(){
+  setCat("sale","home");
+  document.querySelectorAll("#bhkBox input[type=checkbox]").forEach(i=>{
+    i.checked=["1","2","3","4"].includes(i.value);
+    i.closest("label").classList.toggle("on",i.checked);
+  });
+  document.getElementById("minp").value=0;
+  document.getElementById("maxp").value=500;
+  document.getElementById("minr").value=5000;
+  document.getElementById("maxr").value=100000;
+  document.getElementById("kw").value="";
+  document.getElementById("ownerOnly").checked=true;
+  document.getElementById("ownerOnly").closest("label").classList.add("on");
+  document.getElementById("verified").checked=true;
+  document.getElementById("verified").closest("label").classList.add("on");
+  if(document.getElementById("readyMove")){document.getElementById("readyMove").checked=true;document.getElementById("readyMove").closest("label").classList.add("on");document.getElementById("readyMove").closest("label").style.display="";}
+  if(document.getElementById("underConst")){document.getElementById("underConst").checked=true;document.getElementById("underConst").closest("label").classList.add("on");}
+  const tenAny=document.querySelector('input[name="tenant"][value="any"]');
+  if(tenAny){tenAny.checked=true;document.querySelectorAll('input[name="tenant"]').forEach(r=>r.closest("label").classList.toggle("on",r.value==="any"));}
+  const furnAny=document.querySelector('input[name="furn"][value="any"]');
+  if(furnAny){furnAny.checked=true;document.querySelectorAll('input[name="furn"]').forEach(r=>r.closest("label").classList.toggle("on",r.value==="any"));}
+  document.getElementById("results").innerHTML="";
+}
+// Radio toggle style for tenant / furn
+['input[name="tenant"]','input[name="furn"]'].forEach(sel=>{
+  document.querySelectorAll(sel).forEach(r=>{
+    r.addEventListener("change",()=>{
+      document.querySelectorAll(sel).forEach(x=>x.closest("label").classList.toggle("on",x.checked));
+    });
+    r.closest("label").classList.toggle("on",r.checked);
+  });
+});
+// Checkbox toggle for new boxes
+["readyMove","underConst","ownerOnly","verified"].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener("change",()=>el.closest("label").classList.toggle("on",el.checked));
+});
+
+// ===== Build results =====
+function buildLinks(){
+  const cat = CURRENT_CAT.cat;
+  const p = readFilters();
+  const catLabel = {sale:"🏙 Sale (Flat/Bungalow)",rent:"🔑 Rent (Flat/Bungalow)",new:"🆕 New Launch Projects",plot:"🌳 Plot/Land",shop:"🏪 Shop/Office"}[cat];
+  const catClass = "cat-"+cat;
+  const bhkStr = (cat==="plot"||cat==="shop"||cat==="new") ? "" : p.bhks.map(b=>b==="bungalow"?"Bungalow":(b+" BHK")).join(" / ");
+  let priceStr="";
+  if(cat==="rent"){priceStr=`₹${Number(p.minr).toLocaleString("en-IN")} – ₹${Number(p.maxr).toLocaleString("en-IN")}/month`}
+  else if(cat==="shop"){priceStr=`₹${Number(p.minr).toLocaleString("en-IN")} – ₹${Number(p.maxr).toLocaleString("en-IN")}/mo (rent) / ₹${p.min}L–₹${p.max}L (sale)`}
+  else{priceStr=`₹${p.min}L – ₹${p.max}L`}
+  const kwStr = p.kw? `<br><span style="font-weight:400">📍 Keywords: <b>${p.kw}</b></span>`:"";
+  const furnLabel = {any:"Any",furnished:"Furnished",semifurnished:"Semi-Furnished",unfurnished:"Unfurnished"}[p.furn];
+  const tenantLabel = {any:"Any",family:"Family only",bachelor:"Bachelors allowed"}[p.tenant];
+
+  let statusLine = "";
+  if(cat==="sale"||cat==="shop") statusLine=" • Status: "+(p.readyMove&&p.underConst?"Ready + Under Constr":p.readyMove?"Ready to Move":"Under Construction");
+  if(cat==="new") statusLine=" • Status: Under Construction / Pre-Launch / New Booking";
+
+  let html = `
+    <div class="card" style="background:#eaf4ff">
+      <div class="results-head">
+        <b><span class="cat-pill ${catClass}">${catLabel}</span></b>
+        <span style="font-size:12px;color:#4d6582"><span id="srcCount">0</span> links</span>
+      </div>
+      <p style="margin:4px 0;font-size:14px">${bhkStr?bhkStr+" • ":""}${priceStr} • 👤 Owner only${cat==="rent"?" • Tenant: "+tenantLabel:""}${statusLine}${(cat!=="plot")?" • Furnish: "+furnLabel:""}${kwStr}</p>
+      <p style="margin:4px 0;font-size:13px;color:#4d6582">Niche "Open →" tap karo — Safari ma direct filtered listings khulshe.</p>
+    </div>`;
+
+  let shownCount=0;
+  SOURCES[cat].forEach(s=>{
+    if(s.hide && s.hide(p)) return;
+    const url = s.u(p);
+    if(!url || url==="javascript:void(0)") return;
+    shownCount++;
+    html += `
+      <div class="source">
+        <div class="logo" style="background:#${s.color}">${s.logo}</div>
+        <div class="info">
+          <b>${s.name}</b>
+          <small>Owner direct · Gandhinagar</small>
+        </div>
+        <div style="display:flex;gap:6px;flex-shrink:0">
+          <button class="btn" style="width:auto;margin:0;padding:7px 10px;font-size:12px;box-shadow:none" onclick="quickSave('${encodeURIComponent(s.name)}','${encodeURIComponent(url)}','${cat}')">⭐</button>
+          <a href="${url}" target="_blank" rel="noopener">Open →</a>
+        </div>
+      </div>`;
+  });
+  html += `
+    <button class="btn alt" onclick="switchTab('favs')">⭐ Saved listings jo</button>
+    <button class="btn orange" onclick="shareThisSearch()">📤 WhatsApp/Text thi search moklo</button>`;
+  document.getElementById("results").innerHTML=html;
+  const cnt=document.getElementById("srcCount");
+  if(cnt) cnt.textContent=shownCount;
+}
+
+// ===== Quick save from results =====
+function quickSave(nameEnc,urlEnc,cat){
+  const name=decodeURIComponent(nameEnc);
+  const url=decodeURIComponent(urlEnc);
+  addFav({source:name,title:name,url:decodeURIComponent(urlEnc),price:"",loc:"Gandhinagar",cat:cat});
+}
+function shareThisSearch(){
+  const p = readFilters();
+  const cat=CURRENT_CAT.cat;
+  const text=`🏠 Gandhinagar Property Search\nCategory: ${cat.toUpperCase()}\nBHK: ${p.bhks.join("/")}\nPrice: ${p.min}L-${p.max}L\nKeywords: ${p.kw||"-"}\n\nGenerated by Gandhinagar Prop Finder (open in Safari)`;
+  const url="https://wa.me/?text="+encodeURIComponent(text);
+  window.open(url,"_blank");
+}
+
+// ===== Direct sites =====
+function renderSiteList(cat){
+  const def = {bhks:["1","2","3","4"],min:0,max:500,minr:5000,maxr:100000,kw:"",ownerOnly:true,
+               readyMove:true,underConst:true,tenant:"any"};
+  let html="";
+  SOURCES[cat].forEach(s=>{
+    if(s.hide && s.hide(def)) return;
+    const url = s.u(def);
+    if(!url || url==="javascript:void(0)") return;
+    html += `
+    <div class="source">
+      <div class="logo" style="background:#${s.color}">${s.logo}</div>
+      <div class="info">
+        <b>${s.name}</b>
+        <small>Pre-filtered owner listings Gandhinagar</small>
+      </div>
+      <a href="${url}" target="_blank" rel="noopener">Open →</a>
+    </div>`;
+  });
+  document.getElementById("sitelist").innerHTML=html;
+}
+
+// ===== Favorites =====
+const FKEY="gn_prop_favs_v2";
+let FAV_FILT="all";
+function getFavs(){try{return JSON.parse(localStorage.getItem(FKEY)||"[]")}catch(e){return[]}}
+function saveFavs(f){localStorage.setItem(FKEY,JSON.stringify(f))}
+function addFav(item){
+  const f=getFavs();
+  if(f.find(x=>x.url===item.url)){showToast("⚠ Pehla save chhe");return}
+  f.unshift({...item,savedAt:Date.now()});
+  saveFavs(f);renderFavs();showToast("⭐ Saved!");
+}
+function delFav(url){saveFavs(getFavs().filter(x=>x.url!==url));renderFavs()}
+function clearFavs(){
+  if(confirm("Badhi saved listings delete thai jase? OK dabav to")){
+    localStorage.removeItem(FKEY);renderFavs();
+  }
+}
+function renderFavs(){
+  const f=getFavs();
+  document.getElementById("favCount").textContent=f.length;
+  const box=document.getElementById("favList");
+  const emp=document.getElementById("favEmpty");
+  const filt = FAV_FILT==="all"? f : f.filter(x=>x.cat===FAV_FILT);
+  if(!filt.length){box.innerHTML="";emp.style.display="block";emp.textContent = f.length?"Aa category ma kai save nathi.":"Atayre sudhi koi listing save nathi. Search tab ma jav ne ⭐ tap karo.";return}
+  emp.style.display="none";
+  box.innerHTML = filt.map(it=>{
+    const catClass="cat-"+(it.cat||"sale");
+    const catLabel = (it.cat||"sale").toUpperCase();
+    return `
+    <div class="fav-item">
+      <span class="cat-pill ${catClass}">${catLabel}</span>
+      <b>${it.title}</b>
+      <small>${it.source} · ${it.price||""} ${it.loc?"· "+it.loc:""}</small>
+      <div class="fr">
+        <a href="${it.url}" target="_blank">🔗 Open</a>
+        <button class="wa" onclick="waShare('${encodeURIComponent(it.title+"\n"+it.url)}')">📱 WhatsApp</button>
+        <button class="tg" onclick="tgShare('${encodeURIComponent(it.title+"\n"+it.url)}')">✈ Telegram</button>
+        <button class="dl" onclick="delFav('${(it.url||"").replace(/'/g,"\\'")}')">🗑 Delete</button>
+      </div>
+    </div>`;
+  }).join("");
+}
+function waShare(enc){window.open("https://wa.me/?text="+enc,"_blank")}
+function tgShare(enc){window.open("https://t.me/share/url?url=&text="+enc,"_blank")}
+
+// ===== CSV Export (separate per category) =====
+function exportCsv(cat){
+  const all = getFavs();
+  const rows = cat==="all" ? all : all.filter(x=>(x.cat||"sale")===cat);
+  if(!rows.length){showToast("⚠ Category ma data nathi");return}
+  const header = ["Category","Source","Title","Price","Location","URL","SavedDate"];
+  const lines = [header.join(",")];
+  rows.forEach(r=>{
+    const d = new Date(r.savedAt||Date.now()).toLocaleDateString();
+    lines.push([
+      (r.cat||"sale").toUpperCase(),
+      csvCell(r.source||""),
+      csvCell(r.title||""),
+      csvCell(r.price||""),
+      csvCell(r.loc||"Gandhinagar"),
+      csvCell(r.url||""),
+      d
+    ].join(","));
+  });
+  const csv = "\uFEFF"+lines.join("\n");
+  const blob = new Blob([csv],{type:"text/csv;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  a.download=`gandhinagar_${cat==="all"?"all":cat}_flats_${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  showToast("📥 CSV downloaded — Google Sheets ma open kari shako");
+}
+function csvCell(s){
+  s=String(s).replace(/"/g,'""');
+  if(/[,"\n]/.test(s)) s='"'+s+'"';
+  return s;
+}
+function showToast(t){
+  const el=document.createElement("div");
+  el.textContent=t;
+  el.style.cssText="position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#0c5cab;color:#fff;padding:10px 16px;border-radius:30px;font-size:14px;box-shadow:0 4px 14px rgba(0,0,0,.2);z-index:99";
+  document.body.appendChild(el);setTimeout(()=>el.remove(),1800);
+}
+document.querySelectorAll("#favTabs button").forEach(b=>{
+  b.addEventListener("click",()=>{
+    FAV_FILT=b.dataset.f;
+    document.querySelectorAll("#favTabs button").forEach(x=>x.classList.toggle("active",x===b));
+    renderFavs();
+  });
+});
+window.addFav = addFav;
+renderFavs();
+
+// ===== Google Sheet =====
+function openNewSheet(){
+  // Open a blank Google Sheet user can use as template
+  window.open("https://docs.google.com/spreadsheets/u/0/create","_blank");
+}
+
+// ===== Install bar =====
+const isIOSSafari = /iP(hone|od|ad)/.test(navigator.userAgent) && /WebKit/.test(navigator.userAgent) && !/CriOS|FxiOS|EdgiOS/.test(navigator.userAgent);
+const alreadyPrompted = sessionStorage.getItem("instPrompt2");
+if(isIOSSafari && !alreadyPrompted){
+  setTimeout(()=>{document.getElementById("installBar").style.display="block";sessionStorage.setItem("instPrompt2","1")},1500);
+}
+
+// ===== Apps Script templates per category =====
+const SCRIPTS = {
+  sale: `// === Gandhinagar — OWNER FLAT/BUNGALOW SALE Alert ===
+// Google Sheet ma 2 sheets banavo: "Settings" and "Listings"
+// Settings ma A1:B6:
+//   WhatsAppNumber   +919876543210
+//   MinPriceLakh     30
+//   MaxPriceLakh     150
+//   BHK              2,3
+//   Keywords         sargasan,kudasan,gift city
+//   OwnerOnly        YES
+
+function checkSaleFlats(){
+  const url="https://www.magicbricks.com/owner-property-for-sale-in-gandhinagar-pppfs";
+  const res=UrlFetchApp.fetch(url,{muteHttpExceptions:true,headers:{"User-Agent":"Mozilla/5.0"}}).getContentText();
+  const sh=SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Listings")||SpreadsheetApp.getActiveSpreadsheet().insertSheet("Listings");
+  if(sh.getLastRow()===0)sh.appendRow(["Date","Source","BHK","Price","Title","URL"]);
+  const re=/<a[^>]+href="([^"]*(?:propertyDetails|pdpid)[^"]*)"[^>]*>(.*?)<\\/a>/gi;
+  const seen={};let m;let n=0;
+  const urls=sh.getDataRange().getValues().slice(1).map(r=>r[5]);
+  while((m=re.exec(res))&&n<30){
+    let link=m[1];if(link.startsWith("/"))link="https://www.magicbricks.com"+link;
+    const text=m[2].replace(/<[^>]+>/g," ").replace(/\\s+/g," ").trim();
+    if(!text||seen[link]||urls.indexOf(link)>-1)continue;seen[link]=1;
+    const price=(text.match(/₹\\s*[0-9.]+\\s*(Lac|Lakh|Cr)/i)||[""])[0];
+    const bhk=(text.match(/\\d\\s*BHK/i)||[""])[0];
+    sh.appendRow([new Date(),"Magicbricks",bhk,price,bhk+" "+price+" — "+text.slice(0,200),link]);n++;
+    MailApp.sendEmail(Settings("whatsappnumber")+"@s.whatsapp.net","New Owner Flat (Sale Gandhinagar)",bhk+" "+price+"\\n"+text.slice(0,200)+"\\n"+link);
+    Utilities.sleep(1000);
+  }
+}
+function Settings(k){
+  const s=SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Settings");
+  const d=s.getDataRange().getValues();const o={};
+  d.forEach(r=>{if(r[0])o[String(r[0]).trim().toLowerCase()]=String(r[1]||"").trim()});
+  return o[k.toLowerCase()]||"";
+}
+// Trigger: Edit → Current project triggers → checkSaleFlats every 30 min / 1 hr
+`,
+  rent: `// === Gandhinagar — OWNER FLAT/BUNGALOW RENT Alert ===
+function checkRentFlats(){
+  const url="https://www.magicbricks.com/flats-on-rent-without-brokerage-in-gandhinagar-pppfr";
+  const res=UrlFetchApp.fetch(url,{muteHttpExceptions:true,headers:{"User-Agent":"Mozilla/5.0"}}).getContentText();
+  const sh=SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Listings")||SpreadsheetApp.getActiveSpreadsheet().insertSheet("Listings");
+  if(sh.getLastRow()===0)sh.appendRow(["Date","Source","BHK","Rent","Title","URL"]);
+  const re=/<a[^>]+href="([^"]*(?:propertyDetails|pdpid)[^"]*)"[^>]*>(.*?)<\\/a>/gi;
+  const seen={};let m;let n=0;
+  const urls=sh.getDataRange().getValues().slice(1).map(r=>r[5]);
+  while((m=re.exec(res))&&n<30){
+    let link=m[1];if(link.startsWith("/"))link="https://www.magicbricks.com"+link;
+    const text=m[2].replace(/<[^>]+>/g," ").replace(/\\s+/g," ").trim();
+    if(!text||seen[link]||urls.indexOf(link)>-1)continue;seen[link]=1;
+    const rent=(text.match(/₹\\s*[0-9.,]+/i)||[""])[0];
+    const bhk=(text.match(/\\d\\s*BHK/i)||[""])[0];
+    sh.appendRow([new Date(),"Magicbricks",bhk,rent,bhk+" ₹"+rent+" — "+text.slice(0,200),link]);n++;
+    MailApp.sendEmail(Settings("whatsappnumber")+"@s.whatsapp.net","New Owner Flat (Rent Gandhinagar)",bhk+" Rent ₹"+rent+"\\n"+text.slice(0,200)+"\\n"+link);
+    Utilities.sleep(1000);
+  }
+}
+function Settings(k){
+  const s=SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Settings");
+  const d=s.getDataRange().getValues();const o={};
+  d.forEach(r=>{if(r[0])o[String(r[0]).trim().toLowerCase()]=String(r[1]||"").trim()});
+  return o[k.toLowerCase()]||"";
+}
+// Trigger: checkRentFlats every 30 min / 1 hr
+`,
+  plot: `// === Gandhinagar — OWNER PLOT/LAND Alert ===
+function checkPlot(){
+  const url="https://www.magicbricks.com/owner-plots-land-for-sale-in-gandhinagar-pppfs";
+  const res=UrlFetchApp.fetch(url,{muteHttpExceptions:true,headers:{"User-Agent":"Mozilla/5.0"}}).getContentText();
+  const sh=SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Listings")||SpreadsheetApp.getActiveSpreadsheet().insertSheet("Listings");
+  if(sh.getLastRow()===0)sh.appendRow(["Date","Source","Type","Price","Title","URL"]);
+  const re=/<a[^>]+href="([^"]*(?:propertyDetails|pdpid)[^"]*)"[^>]*>(.*?)<\\/a>/gi;
+  const seen={};let m;let n=0;
+  const urls=sh.getDataRange().getValues().slice(1).map(r=>r[5]);
+  while((m=re.exec(res))&&n<30){
+    let link=m[1];if(link.startsWith("/"))link="https://www.magicbricks.com"+link;
+    const text=m[2].replace(/<[^>]+>/g," ").replace(/\\s+/g," ").trim();
+    if(!text||seen[link]||urls.indexOf(link)>-1)continue;seen[link]=1;
+    const price=(text.match(/₹\\s*[0-9.]+\\s*(Lac|Lakh|Cr)/i)||[""])[0];
+    sh.appendRow([new Date(),"Magicbricks","Plot/Land",price,price+" — "+text.slice(0,200),link]);n++;
+    MailApp.sendEmail(Settings("whatsappnumber")+"@s.whatsapp.net","New Owner Plot Gandhinagar",price+"\\n"+text.slice(0,200)+"\\n"+link);
+    Utilities.sleep(1000);
+  }
+}
+function Settings(k){
+  const s=SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Settings");
+  const d=s.getDataRange().getValues();const o={};
+  d.forEach(r=>{if(r[0])o[String(r[0]).trim().toLowerCase()]=String(r[1]||"").trim()});
+  return o[k.toLowerCase()]||"";
+}
+`,
+  shop: `// === Gandhinagar — OWNER SHOP/OFFICE Alert ===
+function checkShop(){
+  const url="https://www.magicbricks.com/commercial-property-for-sale-in-gandhinagar-pppfs?posted_by=Owner";
+  const res=UrlFetchApp.fetch(url,{muteHttpExceptions:true,headers:{"User-Agent":"Mozilla/5.0"}}).getContentText();
+  const sh=SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Listings")||SpreadsheetApp.getActiveSpreadsheet().insertSheet("Listings");
+  if(sh.getLastRow()===0)sh.appendRow(["Date","Source","Type","Price","Title","URL"]);
+  const re=/<a[^>]+href="([^"]*(?:propertyDetails|pdpid)[^"]*)"[^>]*>(.*?)<\\/a>/gi;
+  const seen={};let m;let n=0;
+  const urls=sh.getDataRange().getValues().slice(1).map(r=>r[5]);
+  while((m=re.exec(res))&&n<30){
+    let link=m[1];if(link.startsWith("/"))link="https://www.magicbricks.com"+link;
+    const text=m[2].replace(/<[^>]+>/g," ").replace(/\\s+/g," ").trim();
+    if(!text||seen[link]||urls.indexOf(link)>-1)continue;seen[link]=1;
+    const price=(text.match(/₹\\s*[0-9.]+\\s*(Lac|Lakh|Cr)/i)||[""])[0];
+    sh.appendRow([new Date(),"Magicbricks","Shop/Office",price,price+" — "+text.slice(0,200),link]);n++;
+    MailApp.sendEmail(Settings("whatsappnumber")+"@s.whatsapp.net","New Owner Shop/Office Gandhinagar",price+"\\n"+text.slice(0,200)+"\\n"+link);
+    Utilities.sleep(1000);
+  }
+}
+function Settings(k){
+  const s=SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Settings");
+  const d=s.getDataRange().getValues();const o={};
+  d.forEach(r=>{if(r[0])o[String(r[0]).trim().toLowerCase()]=String(r[1]||"").trim()});
+  return o[k.toLowerCase()]||"";
+}
+`,
+  new: `// === Gandhinagar — NEW LAUNCH / UNDER CONSTRUCTION Projects Alert ===
+function checkNewLaunch(){
+  const url="https://www.magicbricks.com/new-projects-in-gandhinagar";
+  const res=UrlFetchApp.fetch(url,{muteHttpExceptions:true,headers:{"User-Agent":"Mozilla/5.0"}}).getContentText();
+  const sh=SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Listings")||SpreadsheetApp.getActiveSpreadsheet().insertSheet("Listings");
+  if(sh.getLastRow()===0)sh.appendRow(["Date","Source","Type","Price","Title","URL"]);
+  const re=/<a[^>]+href="([^"]*new-project[^"]*|proj-details[^"]*)"[^>]*>(.*?)<\\/a>/gi;
+  const seen={};let m;let n=0;
+  const urls=sh.getDataRange().getValues().slice(1).map(r=>r[5]);
+  while((m=re.exec(res))&&n<30){
+    let link=m[1];if(link.startsWith("/"))link="https://www.magicbricks.com"+link;
+    const text=m[2].replace(/<[^>]+>/g," ").replace(/\\s+/g," ").trim();
+    if(!text||text.length<15||seen[link]||urls.indexOf(link)>-1)continue;seen[link]=1;
+    const price=(text.match(/₹\\s*[0-9.]+\\s*(Lac|Lakh|Cr)/i)||[""])[0];
+    sh.appendRow([new Date(),"Magicbricks","New Launch",price,price+" — "+text.slice(0,200),link]);n++;
+    MailApp.sendEmail(Settings("whatsappnumber")+"@s.whatsapp.net","🆕 New Launch Gandhinagar",price+"\\n"+text.slice(0,200)+"\\n"+link);
+    Utilities.sleep(1000);
+  }
+}
+function Settings(k){
+  const s=SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Settings");
+  const d=s.getDataRange().getValues();const o={};
+  d.forEach(r=>{if(r[0])o[String(r[0]).trim().toLowerCase()]=String(r[1]||"").trim()});
+  return o[k.toLowerCase()]||"";
+}
+// Trigger: checkNewLaunch every 6 hours (new projects kam var aave)
+`
+};
+function loadScript(cat){document.getElementById("scriptText").value=SCRIPTS[cat]||SCRIPTS.sale}
+loadScript("sale");
+document.querySelectorAll("#scriptTabs button").forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll("#scriptTabs button").forEach(x=>x.classList.toggle("active",x===b));
+    loadScript(b.dataset.s);
+  });
+});
+function copyScript(){
+  const ta=document.getElementById("scriptText");
+  ta.select();ta.setSelectionRange(0,99999);
+  try{document.execCommand("copy");document.getElementById("copyMsg").style.display="block"}catch(e){alert("Long-press kari ne copy kari lo.")}
+}
+window.switchTab=switchTab;
+</script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a23769b72b6de084',t:'MTc4NTQ0NjQ4NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
